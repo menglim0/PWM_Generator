@@ -64,7 +64,7 @@
 #define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  // ‰≥ˆ 
 #define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  // ‰»Î
 
-
+typedef enum { FALSE = 0,TRUE = 1} bool;
 
 void NVIC_Configuration(void);
 

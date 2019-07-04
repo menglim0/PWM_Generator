@@ -35,6 +35,7 @@
 "..\obj\timer.o"
 "..\obj\adc.o"
 "..\obj\oled.o"
+"..\obj\usart.o"
 --strict --scatter "..\OBJ\test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -70,19 +70,26 @@ void Lcd_Init(void)
 {
  	GPIO_InitTypeDef  GPIO_InitStructure;
  	
- 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	 //使能A端口时钟
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_7;	 
- 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
- 	GPIO_Init(GPIOA, &GPIO_InitStructure);	  //初始化GPIOD3,6
- 	GPIO_SetBits(GPIOA,GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_4);	
+// 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	 //使能A端口时钟
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_7;	 
+// 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
+//	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
+// 	GPIO_Init(GPIOA, &GPIO_InitStructure);	  //初始化GPIOD3,6
+// 	GPIO_SetBits(GPIOA,GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_4);	
 	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	 //使能A端口时钟
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_8|GPIO_Pin_10;	 
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD, ENABLE);	 //使能A端口时钟
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6;	 
  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
  	GPIO_Init(GPIOB, &GPIO_InitStructure);	  //初始化GPIOD3,6
- 	GPIO_SetBits(GPIOB,GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_8);	
+ 	GPIO_SetBits(GPIOD,GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6);	
+	
+//		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	 //使能A端口时钟
+//	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_8|GPIO_Pin_10;	 
+// 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
+//	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
+// 	GPIO_Init(GPIOB, &GPIO_InitStructure);	  //初始化GPIOD3,6
+// 	GPIO_SetBits(GPIOB,GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_8);	
 
 
 	//OLED_CS_Clr();  //打开片选使能
@@ -426,7 +433,66 @@ void LCD_ShowString(u16 x,u16 y,const u8 *p)
 }
 
 
+void display_Ch_Fre_Duty(u8 ch,u16 freq,u8 duty)
+{
+	u8 channel;
+	//LCD_Clear(WHITE); //清屏
+		channel = (ch-1)*20+35;
+		LCD_ShowString(10,channel,"CH");
+		LCD_ShowNum(26,channel,ch,1);
+		LCD_ShowString(34,channel,":");
+		LCD_ShowString(50,channel,"Freq:");
+		LCD_ShowNum(94,channel,freq,4);
+		LCD_ShowString(140,channel,"Duty:");
+		LCD_ShowNum(184,channel,duty,3);	
+		LCD_ShowString(208,channel,"%");
+}
 
+void xianshi()//显示信息
+{   
+	u16 lx,ly;
+	u8 display_index,Start_Row,Start_Column;
+	BACK_COLOR=WHITE;
+	POINT_COLOR=RED;	
+	//showhanzi(115,0,3);  //电
+	//showhanzi(150,0,4);  //子
+  //LCD_ShowString(10,35,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,55,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,75,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,95,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,115,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,135,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,155,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,175,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,195,"1.3 IPS-SPI 240*320");
+//	LCD_ShowString(10,215,"1.3 IPS-SPI 240*320");
+	//LCD_ShowString(10,235,"1.3 IPS-SPI 240*320");
+	//LCD_ShowString(10,175,"1.3 IPS-SPI 240*320");
+	
+	
+	for(display_index=0;display_index<8;display_index++)
+	{
+		Start_Column = display_index*20+35;
+		LCD_ShowString(10,Start_Column,"CH");
+		LCD_ShowNum(26,Start_Column,(display_index+1),1);
+		LCD_ShowString(34,Start_Column,":");
+		LCD_ShowString(50,Start_Column,"Freq:");
+		LCD_ShowNum(94,Start_Column,1234,4);
+		LCD_ShowString(140,Start_Column,"Duty:");
+		LCD_ShowNum(184,Start_Column,100,3);	
+		LCD_ShowString(208,Start_Column,"%");
+	
+	}
+	
+	display_Ch_Fre_Duty(2,1023,99);
+	display_Ch_Fre_Duty(3,323,9);
+//	LCD_ShowString(10,55,"PWM1:");	LCD_ShowNum(50,55,1234,4);
+//	LCD_ShowString(90,55,"Freq:");LCD_ShowNum(130,55,12,2);	
+//	
+//		LCD_ShowString(10,75,"PWM1:");	LCD_ShowNum(50,55,1234,4);
+//	LCD_ShowString(90,55,"Freq:");LCD_ShowNum(130,55,12,2);	
+	lx=10;ly=75;			
+}
 
 
 

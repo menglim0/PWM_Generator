@@ -44,7 +44,9 @@ void TIM2_Int_Init(u16 arr,u16 psc)
     GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
     GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStruct);
- 
+	
+	//GPIO_PinRemapConfig(GPIO_Remap_SWJ_Disable, ENABLE);    //disable JTAG
+ //GPIO_PinRemapConfig(GPIO_FullRemap_TIM2, ENABLE); 
     //初始化TIM3
 	TIM_TimeBaseInitStruct.TIM_Period = arr; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值
 	TIM_TimeBaseInitStruct.TIM_Prescaler =psc; //设置用来作为TIMx时钟频率除数的预分频值 
@@ -115,34 +117,34 @@ void TIM5_Int_Init(u16 arr,u16 psc)
     TIM_OCInitTypeDef       TIM_OCInitStruct;
     GPIO_InitTypeDef GPIO_InitStruct;
  
-		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);	//使能定时器3时钟
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
- 
-    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_1;
-    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
-    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOA, &GPIO_InitStruct);
+//		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);	//使能定时器3时钟
+//    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+// 
+//    GPIO_InitStruct.GPIO_Pin = GPIO_Pin_1;
+//    GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+//    GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+//    GPIO_Init(GPIOA, &GPIO_InitStruct);
  
     //初始化TIM3
-	TIM_TimeBaseInitStruct.TIM_Period = arr; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值
-	TIM_TimeBaseInitStruct.TIM_Prescaler =psc; //设置用来作为TIMx时钟频率除数的预分频值 
-	TIM_TimeBaseInitStruct.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
-	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
+//	TIM_TimeBaseInitStruct.TIM_Period = arr; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值
+//	TIM_TimeBaseInitStruct.TIM_Prescaler =psc; //设置用来作为TIMx时钟频率除数的预分频值 
+//	TIM_TimeBaseInitStruct.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
+//	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
 
-    TIM_TimeBaseInit(TIM5, &TIM_TimeBaseInitStruct);
- 
-    TIM_OCStructInit(&TIM_OCInitStruct);/*这一步最好加上*/
-    
-    TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
-    TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
-    TIM_OCInitStruct.TIM_Pulse = 100;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
-    TIM_OC2Init(TIM5, &TIM_OCInitStruct);
- 
-    TIM_OC2PreloadConfig(TIM5, TIM_OCPreload_Enable);
-    TIM_ARRPreloadConfig(TIM5, ENABLE);
-   //TIM_CtrlPWMOutputs(TIM4, ENABLE);/*这一个函数只针对timer1和timer8*/
-    TIM_Cmd(TIM5, ENABLE); 
+//    TIM_TimeBaseInit(TIM5, &TIM_TimeBaseInitStruct);
+// 
+//    TIM_OCStructInit(&TIM_OCInitStruct);/*这一步最好加上*/
+//    
+//    TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
+//    TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
+//    TIM_OCInitStruct.TIM_Pulse = 100;
+//    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
+//    TIM_OC2Init(TIM5, &TIM_OCInitStruct);
+// 
+//    TIM_OC2PreloadConfig(TIM5, TIM_OCPreload_Enable);
+//    TIM_ARRPreloadConfig(TIM5, ENABLE);
+//   //TIM_CtrlPWMOutputs(TIM4, ENABLE);/*这一个函数只针对timer1和timer8*/
+//    TIM_Cmd(TIM5, ENABLE); 
 }
 
 void TIM8_Int_Init(u16 arr,u16 psc)

@@ -375,7 +375,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\FWLib\inc;..\CMSIS;..\MY\inc;..\MY\code;..\MY\lcd;..\MY\delay;..\MY\sys;..\MY\TIMER;..\MY\adc;..\MY\OLED</IncludePath>
+              <IncludePath>..\USER;..\FWLib\inc;..\CMSIS;..\MY\inc;..\MY\code;..\MY\lcd;..\MY\delay;..\MY\sys;..\MY\TIMER;..\MY\adc;..\MY\OLED;..\MY\usart</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -618,6 +618,11 @@
               <FileName>oled.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\MY\OLED\oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\MY\usart\usart.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -38,3 +38,5 @@
 ..\obj\main.o: ..\MY\OLED\oled.h
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\main.o: ..\MY\OLED\bmp.h
+..\obj\main.o: ..\MY\usart\usart.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

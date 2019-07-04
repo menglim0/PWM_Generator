@@ -21,7 +21,7 @@
 #include "stdint.h"
 #include "oled.h"
 #include "bmp.h"
-
+#include "usart.h"
 /*
 sbit lcd_cs1  =  P3^4;//CS
 sbit lcd_reset=  P3^5;//RST
@@ -55,6 +55,7 @@ ADC Port: PA2-7,PB0,1;PC0,1,2,3
  
 /******************USART0 PA9/PA10****/
 
+u8 txbuf[4]={1,2,3,4};
 
 uint16_t Get_Adc_Filter(uint16_t value,uint8_t times)
 {
@@ -66,22 +67,39 @@ uint16_t Get_Adc_Filter(uint16_t value,uint8_t times)
 		//delay(5);
 	}
 	return temp_val/times;
-} 	 
+} 	
+
+
+void LED_Init_G14(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOG, ENABLE);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14;			 //板上LED编号 D2
+  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  	GPIO_Init(GPIOG, &GPIO_InitStructure);
+
+}
+
 
 //-----------------------------
 int main()
 {		
-	
+	bool LED_State_01;
 	int delayI,cnt=0,channel_i;
 	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
-unsigned int adcx_Freq_Raw[6],adcx_DutyCycle_Raw[6],adcx_Freq_Old[6],adcx_DutyCycle_Old[6];
-	uint8_t adcx_Freq_Changed[6],adcx_DutyCycle_Changed[6];
+unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCycle_Old[8];
+	uint8_t adcx_Freq_Changed[8],adcx_DutyCycle_Changed[8];
 	
 	uint8_t ADC_index_i;
+	LED_Init_G14();
   LED_Init();	
 	
 			NVIC_Configuration(); 	 //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
+	
+		uart_init(115200);	 //串口初始化为9600
 	/* */
 		TIM3_PWM_Init(8999,100);	 //不分频。PWM频率=72000/900=8Khz
 		TIM_SetCompare2(TIM3,800);	
@@ -96,30 +114,50 @@ unsigned int adcx_Freq_Raw[6],adcx_DutyCycle_Raw[6],adcx_Freq_Old[6],adcx_DutyCy
 		TIM_SetCompare1(TIM4,800);          //设置占空比为1/3
 	 
 	 	 
-	 	 		TIM5_Int_Init(6009,100);	
-		TIM_SetCompare2(TIM5,800);         //设置占空比为1/3
+	 //	 TIM5_Int_Init(6009,100);	
+		//TIM_SetCompare2(TIM5,800);         //设置占空比为1/3
 	 
 	 	 	 		TIM8_Int_Init(6009,100);	
 		TIM_SetCompare1(TIM8,800);         //设置占空比为1/3
 	
 	//ADC1_Init();
 	Adc_Init();
-	initial_lcd(); 									//对液晶模块进行初始化设置
-	delay(500);
-	clear_screen();	
-	display_string_16x16(32,4,"豹宏实业有限公司");
-		//	display_string_16x16(32,6,"豹宏实业有限公司");
-			/**/
-	delay(50000);
-	delay(50000);
-
-
-	clear_screen();	 
+	
+	if(0)
+	{
+		initial_lcd(); 									//对液晶模块进行初始化设置
+		delay(500);
+		clear_screen();	
+		display_string_16x16(32,4,"豹宏实业有限公司");
+			//	display_string_16x16(32,6,"豹宏实业有限公司");
+				/**/
+		delay(50000);
+		delay(50000);
+		clear_screen();	
+	}
+	 Lcd_Init();			//初始化OLED  
+	
+	LCD_Clear(WHITE); //清屏
+	BACK_COLOR=BLACK;;POINT_COLOR=WHITE; 
+	xianshi(); //显示信息 
 		
 	while(1)
 	{
 	
-
+	delay(500);
+		if(LED_State_01==FALSE)
+		{
+		GPIO_ResetBits(GPIOG, GPIO_Pin_14);
+			LED_State_01=TRUE;
+		}
+		else
+		{
+			GPIO_SetBits(GPIOG, GPIO_Pin_14);
+			LED_State_01=FALSE;
+				Usart1_Send(txbuf,4);
+		}
+		
+	
 
 		/**/
 		adcx_Freq_Raw[0] = Get_Adc_Average(ADC_Channel_2,100); // 读取转换的AD值
@@ -128,14 +166,21 @@ unsigned int adcx_Freq_Raw[6],adcx_DutyCycle_Raw[6],adcx_Freq_Old[6],adcx_DutyCy
 		adcx_Freq_Raw[3] = Get_Adc_Average(ADC_Channel_5,100); // 读取转换的AD值
 		adcx_Freq_Raw[4] = Get_Adc_Average(ADC_Channel_6,100); // 读取转换的AD值
 		adcx_Freq_Raw[5] = Get_Adc_Average(ADC_Channel_7,100); // 读取转换的AD值
+		//adcx_Freq_Raw[6] = Get_Adc_Average(ADC_Channel_0,100); // 读取转换的AD值
+		//adcx_Freq_Raw[7] = Get_Adc_Average(ADC_Channel_1,100); // 读取转换的AD值
+		
+		
 		adcx_DutyCycle_Raw[0] = Get_Adc_Average(ADC_Channel_8,100); // 读取转换的AD值
 		adcx_DutyCycle_Raw[1] = Get_Adc_Average(ADC_Channel_9,100); // 读取转换的AD值
 		adcx_DutyCycle_Raw[2] = Get_Adc_Average(ADC_Channel_10,100); // 读取转换的AD值
 		adcx_DutyCycle_Raw[3] = Get_Adc_Average(ADC_Channel_11,100); // 读取转换的AD值
 		adcx_DutyCycle_Raw[4] = Get_Adc_Average(ADC_Channel_12,100); // 读取转换的AD值
 		adcx_DutyCycle_Raw[5] = Get_Adc_Average(ADC_Channel_13,100); // 读取转换的AD值
+		adcx_DutyCycle_Raw[6] = Get_Adc_Average(ADC_Channel_14,100); // 读取转换的AD值
+		adcx_DutyCycle_Raw[7] = Get_Adc_Average(ADC_Channel_15,100); // 读取转换的AD值
 		
-		for(ADC_index_i=0;ADC_index_i<6;ADC_index_i++)
+		
+		for(ADC_index_i=0;ADC_index_i<8;ADC_index_i++)
 		{
 		//adcx[ADC_index_i] = Get_Adc_Average(ADC_index_i+1,100); // 读取转换的AD值
 			adcx_Freq[ADC_index_i]=Get_Adc_Filter(adcx_Freq_Raw[ADC_index_i],100);
@@ -173,40 +218,29 @@ unsigned int adcx_Freq_Raw[6],adcx_DutyCycle_Raw[6],adcx_Freq_Old[6],adcx_DutyCy
 		ADC_ConvertedValueLocal2=adcx_Freq[0];
 		//display_PWM_Channel(1,1);
 		
-		for(channel_i=0;channel_i<6;channel_i++)
+		for(channel_i=0;channel_i<8;channel_i++)
 		{
 			if((adcx_Freq_Changed[channel_i]==1) || (adcx_DutyCycle_Changed[channel_i]==1))
 			{
-			display_PWM_Channel(channel_i+1,channel_i);
-			display_PWM_Freq(channel_i+1,channel_i*2,adcx_Freq[channel_i]);
-			display_PWM_DutyCycle(channel_i+1,channel_i*2,adcx_DutyCycle[channel_i]/100);
+//			display_PWM_Channel(channel_i+1,channel_i);
+//			display_PWM_Freq(channel_i+1,channel_i*2,adcx_Freq[channel_i]);
+//			display_PWM_DutyCycle(channel_i+1,channel_i*2,adcx_DutyCycle[channel_i]/100);
 
 			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
+				
+				/*1.3 OLED display*/
+				display_Ch_Fre_Duty(channel_i+1,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);
 			}
 		}
 		
-	//	PWM_Freq_DC(3,adcx_DutyCycle[0],adcx_Freq[0]);
-		//test(1,1)
-
-		/*
-		disp_16x8x4_Char(1,3,PWM1);
-		disp_16x8x1_Char(5,3,Number[1]);*/
-		/*
-		disp_16x8x4_Char(1,4,PWM1);
-		disp_16x8x4_Char(1,5,PWM1);
-		disp_16x8x4_Char(1,3,PWM1);
-		disp_16x8x4_Char(1,4,PWM1);
-		disp_16x8x4_Char(1,5,PWM1);
-		disp_16x8x4_Char(1,3,PWM1);
-		disp_16x8x4_Char(1,4,PWM1);
-		disp_16x8x4_Char(1,5,PWM1);*/
+	
 		
 		//disp_16x8x4_Char(32,1,jing2[]);
 		for(delayI=0;delayI<10;delayI++)
 		{
 			//delay(50); 
 		}
-	cnt=cnt+1;
+			cnt=cnt+1;
 		if(cnt>=8)
 		{
 		cnt = 0;
