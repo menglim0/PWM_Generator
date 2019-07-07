@@ -1,0 +1,31 @@
+#define lcd_cs1_on  GPIO_SetBits(GPIOD,GPIO_Pin_4)
+#define lcd_cs1_off  GPIO_ResetBits(GPIOD,GPIO_Pin_4)
+
+#define lcd_reset_on  GPIO_SetBits(GPIOD,GPIO_Pin_2)
+#define lcd_reset_off  GPIO_ResetBits(GPIOD,GPIO_Pin_2)
+
+#define lcd_sclk_on  GPIO_SetBits(GPIOD,GPIO_Pin_6)
+#define lcd_sclk_off  GPIO_ResetBits(GPIOD,GPIO_Pin_6)
+
+#define lcd_rs_on  GPIO_SetBits(GPIOD,GPIO_Pin_0)
+#define lcd_rs_off  GPIO_ResetBits(GPIOD,GPIO_Pin_0)
+
+#define lcd_sid_on  GPIO_SetBits(GPIOD,GPIO_Pin_8)
+#define lcd_sid_off  GPIO_ResetBits(GPIOD,GPIO_Pin_8)
+
+LCD port£º
+
+
+PWM Port: 
+PD4-->CS
+PD2-->RESET
+PD6-->SCLK
+PD0-->RS
+PD8-->SID
+
+PWM OUT:
+PD12 PC6 PA0/1/8 PB5
+
+ADC_IN Port: 
+
+PA2/3/4/5/6/7,PB0/1;PC0/1/2/3
