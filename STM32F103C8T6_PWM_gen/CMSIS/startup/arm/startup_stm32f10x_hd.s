@@ -48,7 +48,9 @@ Heap_Size       EQU     0x00000200
 __heap_base
 Heap_Mem        SPACE   Heap_Size
 __heap_limit
-
+			    IMPORT xPortPendSVHandler
+				IMPORT xPortSysTickHandler
+				IMPORT vPortSVCHandler
                 PRESERVE8
                 THUMB
 
@@ -56,8 +58,8 @@ __heap_limit
 ; Vector Table Mapped to Address 0 at Reset
                 AREA    RESET, DATA, READONLY
                 EXPORT  __Vectors
-                EXPORT  __Vectors_End
-                EXPORT  __Vectors_Size
+               ; EXPORT  __Vectors_End
+                ;EXPORT  __Vectors_Size
 
 __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     Reset_Handler              ; Reset Handler

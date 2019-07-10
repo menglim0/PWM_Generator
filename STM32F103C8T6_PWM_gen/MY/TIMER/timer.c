@@ -113,9 +113,9 @@ void TIM4_Int_Init(u16 arr,u16 psc)
 void TIM5_Int_Init(u16 arr,u16 psc)
 {
 
-    TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
-    TIM_OCInitTypeDef       TIM_OCInitStruct;
-    GPIO_InitTypeDef GPIO_InitStruct;
+    //TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
+//    TIM_OCInitTypeDef       TIM_OCInitStruct;
+   // GPIO_InitTypeDef GPIO_InitStruct;
  
 //		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);	//使能定时器3时钟
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);

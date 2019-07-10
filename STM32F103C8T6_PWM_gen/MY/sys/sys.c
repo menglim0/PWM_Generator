@@ -17,7 +17,7 @@ void NVIC_Configuration(void)
 
     NVIC_InitTypeDef NVIC_InitStructure;
     //NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//设置NVIC中断分组2:2位抢占优先级，2位响应优先级
-		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//配置为1组
+		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//配置为1组
     NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn; //定时器3中断配置
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; //先占优先级1级
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0; //从优先级1级

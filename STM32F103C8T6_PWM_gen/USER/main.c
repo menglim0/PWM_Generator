@@ -7,6 +7,7 @@
 技术论坛：www.doflye.net
 备    注：通过简单修改可以移植到其他开发板，部分资料来源于网络。
 ---------------------------------------------------------------------------------*/
+#include <stdio.h>
 #include "stm32f10x.h"
 #include "stm32f10x_adc.h"
 #include "stm32f10x_dma.h"
@@ -24,6 +25,13 @@
 #include "usart.h"
 #include "spi.h"	
 #include "display.h"
+
+/* Scheduler includes. */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+#include "My_InitTask.h" 
 /*
 sbit lcd_cs1  =  P3^4;//CS
 sbit lcd_reset=  P3^5;//RST
@@ -57,7 +65,7 @@ ADC Port: PA2-7,PB0,1;PC0,1,2,3
  
 /******************USART0 PA9/PA10****/
 
-u8 txbuf[4]={1,2,3,4};
+u8 txbuf[16];
 
 /*for dispaly 1.8TFT below*/
 
@@ -65,6 +73,10 @@ u8 state=0;
 void beepms(u16 va);
 void xianshi(void);//显示信息  
 void refshow(void);//刷新显示
+
+/*RTOS*/
+
+void Task1 (void *data);
 
 void Load_Drow_Dialog(void)
 {
@@ -141,13 +153,13 @@ void LED_Init_G14(void)
 //-----------------------------
 int main()
 {		
-	bool LED_State_01;
+	bool LED_State_01,Usart_Config_State;
 	int delayI,cnt=0,channel_i;
 	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
 unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCycle_Old[8];
 	uint8_t adcx_Freq_Changed[8],adcx_DutyCycle_Changed[8];
-	
-	uint8_t ADC_index_i;
+	uint16_t dutycycle;
+	uint8_t ADC_index_i, Send_Buf_index;
 		u16 i=0;	 
 	u8 key=0;
 	
@@ -159,7 +171,7 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	
 		uart_init(115200);	 //串口初始化为9600
 	/* */
-
+		My_InitTask();
 
 		TIM1_Int_Init(6009,1000);	
 		TIM_SetCompare1(TIM1,800);         //设置占空比为1/3
@@ -203,35 +215,50 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
  	POINT_COLOR=RED;//设置字体为红色 
 	xianshi();	   //显示信息
 
+	
+	//xTaskCreate( Task1, ( signed portCHAR *) "Task1", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);
+	//xTaskCreate( Task2, ( signed portCHAR *) "Task2", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);
+	//xTaskCreate( Task3, ( signed portCHAR *) "Task3", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY), 	NULL);
+   //	xTaskCreate( Task4, ( signed portCHAR *) "Task4", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY), NULL);
+	/*xTaskCreate( Task5, ( signed portCHAR *) "Task5", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);
+	xTaskCreate( Task6, ( signed portCHAR *) "Task6", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);*/
+	
+
+	/* Start the scheduler. */
+	//vTaskStartScheduler();
+	
+	Usart_Config_State=GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
+	
 	while(1)
 	{
 	
 	delay(500);
-		/*
-		if(LED_State_01==FALSE)
+			
+		if(Usart_Config_State==FALSE)
 		{
-		GPIO_ResetBits(GPIOG, GPIO_Pin_14);
-			LED_State_01=TRUE;
-		}
-		else
-		{
-			GPIO_SetBits(GPIOG, GPIO_Pin_14);
-			LED_State_01=FALSE;
-				Usart1_Send(txbuf,4);
+			if(Usart1_Receive_Complete==TRUE)
+			{
+				Usart1_Send(DMA_Rece_Buf,Usart1_Rec_Cnt);
+				Usart1_Receive_Complete=FALSE;
+			}
 		}
 		
-	*/
-		if(Usart1_Receive_Complete==TRUE)
+for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		{
-		Usart1_Send(DMA_Rece_Buf,Usart1_Rec_Cnt);
-			Usart1_Receive_Complete=FALSE;
+			adcx_Freq_Raw[ADC_index_i] = Get_Adc_Average(ADC_index_i+1,100); // 读取转换的AD值
+			adcx_DutyCycle_Raw[ADC_index_i] = Get_Adc_Average(ADC_index_i+5,100); // 读取转换的AD值
 		}
-	//Usart1_Send(txbuf,4);
-		/**/
-		adcx_Freq_Raw[0] = Get_Adc_Average(ADC_Channel_1,100); // 读取转换的AD值
-		adcx_Freq_Raw[1] = Get_Adc_Average(ADC_Channel_2,100); // 读取转换的AD值
-		adcx_Freq_Raw[2] = Get_Adc_Average(ADC_Channel_3,100); // 读取转换的AD值
-		adcx_Freq_Raw[3] = Get_Adc_Average(ADC_Channel_4,100); // 读取转换的AD值
+		
+//		adcx_Freq_Raw[0] = Get_Adc_Average(ADC_Channel_1,100); // 读取转换的AD值
+//		adcx_Freq_Raw[1] = Get_Adc_Average(ADC_Channel_2,100); // 读取转换的AD值
+//		adcx_Freq_Raw[2] = Get_Adc_Average(ADC_Channel_3,100); // 读取转换的AD值
+//		adcx_Freq_Raw[3] = Get_Adc_Average(ADC_Channel_4,100); // 读取转换的AD值
+//		
+//		adcx_DutyCycle_Raw[0] = Get_Adc_Average(ADC_Channel_5,100); // 读取转换的AD值
+//		adcx_DutyCycle_Raw[1] = Get_Adc_Average(ADC_Channel_6,100); // 读取转换的AD值
+//		adcx_DutyCycle_Raw[2] = Get_Adc_Average(ADC_Channel_7,100); // 读取转换的AD值
+//		adcx_DutyCycle_Raw[3] = Get_Adc_Average(ADC_Channel_8,100); // 读取转换的AD值
+		
 	//	adcx_Freq_Raw[4] = Get_Adc_Average(ADC_Channel_5,100); // 读取转换的AD值
 	//	adcx_Freq_Raw[5] = Get_Adc_Average(ADC_Channel_6,100); // 读取转换的AD值
 	//	adcx_Freq_Raw[6] = Get_Adc_Average(ADC_Channel_7,100); // 读取转换的AD值
@@ -239,10 +266,10 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 		//adcx_Freq_Raw[7] = Get_Adc_Average(ADC_Channel_1,100); // 读取转换的AD值
 		
 		
-		adcx_DutyCycle_Raw[0] = Get_Adc_Average(ADC_Channel_5,100); // 读取转换的AD值
-		adcx_DutyCycle_Raw[1] = Get_Adc_Average(ADC_Channel_6,100); // 读取转换的AD值
-		adcx_DutyCycle_Raw[2] = Get_Adc_Average(ADC_Channel_7,100); // 读取转换的AD值
-		adcx_DutyCycle_Raw[3] = Get_Adc_Average(ADC_Channel_8,100); // 读取转换的AD值
+
+		
+		
+		
 //		adcx_DutyCycle_Raw[4] = Get_Adc_Average(ADC_Channel_12,100); // 读取转换的AD值
 //		adcx_DutyCycle_Raw[5] = Get_Adc_Average(ADC_Channel_13,100); // 读取转换的AD值
 //		adcx_DutyCycle_Raw[6] = Get_Adc_Average(ADC_Channel_14,100); // 读取转换的AD值
@@ -281,11 +308,32 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 			adcx_Freq_Old[ADC_index_i] =adcx_Freq[ADC_index_i];
 			adcx_DutyCycle_Old[ADC_index_i] =adcx_DutyCycle[ADC_index_i];
 		}
-	
 		
+		if(Usart_Config_State==TRUE)
+		{
+			
+				for(channel_i=0;channel_i<4;channel_i++)
+				{
+					//Send_Buf_index=channel_i/4;
+					dutycycle=(adcx_DutyCycle[channel_i]*100)/4095;
+					
+						txbuf[0+channel_i*4]=channel_i;					
+						txbuf[1+channel_i*4]=dutycycle;
+						txbuf[2+channel_i*4]=adcx_Freq[channel_i]>>8;
+						txbuf[3+channel_i*4]=adcx_Freq[channel_i]&0xFF;
+					
+					
+					delay(500);
+				}
+			Usart1_Send(txbuf,16);
+		}
+			
+	
 		
 		ADC_ConvertedValueLocal2=adcx_Freq[0];
 		//display_PWM_Channel(1,1);
+		
+		
 		
 		for(channel_i=0;channel_i<4;channel_i++)
 		{
@@ -294,11 +342,15 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 			//display_PWM_Channel(channel_i+1,channel_i);
 //			display_PWM_Freq(channel_i+1,channel_i*2,adcx_Freq[channel_i]);
 //			display_PWM_DutyCycle(channel_i+1,channel_i*2,adcx_DutyCycle[channel_i]/100);
-				uint16_t dutycycle;
 				
-			dutycycle=(adcx_DutyCycle[channel_i]*100)/4095;
+				
+	
 			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
+				
+	
+				
+						
 				/*1.3 OLED display*/
 				//display_Ch_Fre_Duty(channel_i+1,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);
 			}
@@ -307,9 +359,9 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	
 		
 		//disp_16x8x4_Char(32,1,jing2[]);
-		for(delayI=0;delayI<10;delayI++)
+		for(delayI=0;delayI<100;delayI++)
 		{
-			//delay(50); 
+			delay(200); 
 		}
 			cnt=cnt+1;
 		if(cnt>=8)
@@ -323,7 +375,20 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	}
 }
 
+void Task1 (void *data)
+{
+	data = data;
 
+	while (1) 
+	{
+		 
+   PCout(13)=!PCout(13);            //  点亮LED 
+		vTaskDelay( 1000 / portTICK_RATE_MS ); 
+	
+		
+
+	}
+}
 
 
 /*----------------------德飞莱 技术论坛：www.doflye.net--------------------------*/

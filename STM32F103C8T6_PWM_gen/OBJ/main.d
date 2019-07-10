@@ -1,4 +1,5 @@
 ..\obj\main.o: main.c
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\CMSIS\stm32f10x.h
 ..\obj\main.o: ..\CMSIS\core_cm3.h
 ..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -36,6 +37,16 @@
 ..\obj\main.o: ..\MY\TIMER\timer.h
 ..\obj\main.o: ..\MY\adc\adc.h
 ..\obj\main.o: ..\MY\usart\usart.h
-..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\MY\SPI\spi.h
 ..\obj\main.o: ..\MY\display\display.h
+..\obj\main.o: ..\FreeRTOS\include\FreeRTOS.h
+..\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+..\obj\main.o: ..\FreeRTOS\include\projdefs.h
+..\obj\main.o: ..\FreeRTOS\include\FreeRTOSConfig.h
+..\obj\main.o: ..\FreeRTOS\include\portable.h
+..\obj\main.o: ..\FreeRTOS\portable\portmacro.h
+..\obj\main.o: ..\FreeRTOS\include\mpu_wrappers.h
+..\obj\main.o: ..\FreeRTOS\include\task.h
+..\obj\main.o: ..\FreeRTOS\include\list.h
+..\obj\main.o: ..\FreeRTOS\include\queue.h
+..\obj\main.o: ..\MY\My_InitTask.h
