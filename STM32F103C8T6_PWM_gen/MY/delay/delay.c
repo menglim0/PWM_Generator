@@ -25,7 +25,7 @@ void delay_us(int i)
 
 void delay_ms(int i)               
 {
-	delay(i); 
+	delay(i*20); 
 }
 
 

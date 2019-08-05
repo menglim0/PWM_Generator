@@ -104,94 +104,144 @@ void LCD_Init(void)
     SPILCD_RST_SET ;	//LCD_RST=1		
 	delay_ms(20);
 
-	lcddev.width=128;
-	lcddev.height=160;
+	
+	//竖屏
+	lcddev.width=320;
+	lcddev.height=240;
 	lcddev.wramcmd=0X2C;
 	lcddev.setxcmd=0X2A;
 	lcddev.setycmd=0X2B; 	
+//	
+	//横屏
+	//lcddev.dir=1;        
+//                lcddev.width=320;
+//                lcddev.height=240;
+//                lcddev.wramcmd=0X2C;
+//                lcddev.setxcmd=0X2B;
+//                lcddev.setycmd=0X2A;
+	      LCD_WR_REG(0x2A);  
+        LCD_WR_DATA8(0xFF); 
+        LCD_WR_DATA8(0xFF); 
+        LCD_WR_DATA8(0xFF); 
+        LCD_WR_DATA8(0xFF); 
 
-	LCD_WR_REG(0x11); //Sleep out
-	delay_ms(120); //Delay 120ms
-	//------------------------------------ST7735S Frame Rate-----------------------------------------//
-	LCD_WR_REG(0xB1);
-	LCD_WR_DATA8(0x05);
-	LCD_WR_DATA8(0x3C);
-	LCD_WR_DATA8(0x3C);
-	LCD_WR_REG(0xB2);
-	LCD_WR_DATA8(0x05);
-	LCD_WR_DATA8(0x3C);
-	LCD_WR_DATA8(0x3C);
-	LCD_WR_REG(0xB3);
-	LCD_WR_DATA8(0x05);
-	LCD_WR_DATA8(0x3C);
-	LCD_WR_DATA8(0x3C);
-	LCD_WR_DATA8(0x05);
-	LCD_WR_DATA8(0x3C);
-	LCD_WR_DATA8(0x3C);
-	//------------------------------------End ST7735S Frame Rate-----------------------------------------//
-	LCD_WR_REG(0xB4); //Dot inversion
-	LCD_WR_DATA8(0x03);
-	LCD_WR_REG(0xC0);
-	LCD_WR_DATA8(0x28);
-	LCD_WR_DATA8(0x08);
-	LCD_WR_DATA8(0x04);
-	LCD_WR_REG(0xC1);
-	LCD_WR_DATA8(0XC0);
-	LCD_WR_REG(0xC2);
-	LCD_WR_DATA8(0x0D);
-	LCD_WR_DATA8(0x00);
-	LCD_WR_REG(0xC3);
-	LCD_WR_DATA8(0x8D);
-	LCD_WR_DATA8(0x2A);
-	LCD_WR_REG(0xC4);
-	LCD_WR_DATA8(0x8D);
-	LCD_WR_DATA8(0xEE);
-	//---------------------------------End ST7735S Power Sequence-------------------------------------//
-	LCD_WR_REG(0xC5); //VCOM
-	LCD_WR_DATA8(0x1A);
-	LCD_WR_REG(0x36); //MX, MY, RGB mode
-	LCD_WR_DATA8(0xC0);
-	//------------------------------------ST7735S Gamma Sequence-----------------------------------------//
-	LCD_WR_REG(0xE0);
-	LCD_WR_DATA8(0x04);
-	LCD_WR_DATA8(0x22);
-	LCD_WR_DATA8(0x07);
-	LCD_WR_DATA8(0x0A);
-	LCD_WR_DATA8(0x2E);
-	LCD_WR_DATA8(0x30);
-	LCD_WR_DATA8(0x25);
-	LCD_WR_DATA8(0x2A);
-	LCD_WR_DATA8(0x28);
-	LCD_WR_DATA8(0x26);
-	LCD_WR_DATA8(0x2E);
-	LCD_WR_DATA8(0x3A);
-	LCD_WR_DATA8(0x00);
-	LCD_WR_DATA8(0x01);
-	LCD_WR_DATA8(0x03);
-	LCD_WR_DATA8(0x13);
-	LCD_WR_REG(0xE1);
-	LCD_WR_DATA8(0x04);
-	LCD_WR_DATA8(0x16);
-	LCD_WR_DATA8(0x06);
-	LCD_WR_DATA8(0x0D);
-	LCD_WR_DATA8(0x2D);
-	LCD_WR_DATA8(0x26);
-	LCD_WR_DATA8(0x23);
-	LCD_WR_DATA8(0x27);
-	LCD_WR_DATA8(0x27);
-	LCD_WR_DATA8(0x25);
-	LCD_WR_DATA8(0x2D);
-	LCD_WR_DATA8(0x3B);
-	LCD_WR_DATA8(0x00);
-	LCD_WR_DATA8(0x01);
-	LCD_WR_DATA8(0x04);
-	LCD_WR_DATA8(0x13);
-	//------------------------------------End ST7735S Gamma Sequence-----------------------------------------//
-	LCD_WR_REG(0x3A); //65k mode
-	LCD_WR_DATA8(0x05);
-	LCD_WR_REG(0x29); //Display on
+				LCD_WR_REG(0xCB);  
+        LCD_WR_DATA8(0x39); 
+        LCD_WR_DATA8(0x2C); 
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x34); 
+        LCD_WR_DATA8(0x02); 
 
-	LCD_Clear(WHITE); 
+        LCD_WR_REG(0xCF);  
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0XC1); 
+        LCD_WR_DATA8(0X30); 
+ 
+        LCD_WR_REG(0xE8);  
+        LCD_WR_DATA8(0x85); 
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x78); 
+ 
+        LCD_WR_REG(0xEA);  
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x00); 
+ 
+        LCD_WR_REG(0xED);  
+        LCD_WR_DATA8(0x64); 
+        LCD_WR_DATA8(0x03); 
+        LCD_WR_DATA8(0X12); 
+        LCD_WR_DATA8(0X81); 
+
+        LCD_WR_REG(0xF7);  
+        LCD_WR_DATA8(0x20); 
+  
+        LCD_WR_REG(0xC0);    //Power control 
+        LCD_WR_DATA8(0x23);   //VRH[5:0] 
+ 
+        LCD_WR_REG(0xC1);    //Power control 
+        LCD_WR_DATA8(0x10);   //SAP[2:0];BT[3:0] 
+ 
+        LCD_WR_REG(0xC5);    //VCM control 
+        LCD_WR_DATA8(0x3e); //对比度调节
+        LCD_WR_DATA8(0x28); 
+ 
+        LCD_WR_REG(0xC7);    //VCM control2 
+        LCD_WR_DATA8(0x86);  //--
+				
+				LCD_WR_REG(0x33);    // Vertical Scrolling Definition
+				LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x00); 				
+ 
+        LCD_WR_REG(0x36);    // Memory Access Control 
+        LCD_WR_DATA8(0xE8); //C8	   //48 68竖屏//28 E8 横屏
+				
+				LCD_WR_REG(0x37);    // Vertical Scrolling Start
+				LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x00); 
+
+
+        LCD_WR_REG(0x3A);    
+        LCD_WR_DATA8(0x55); 
+
+        LCD_WR_REG(0xB1);    
+        LCD_WR_DATA8(0x00);  
+        LCD_WR_DATA8(0x18); 
+ 
+        LCD_WR_REG(0xB6);    // Display Function Control 
+        LCD_WR_DATA8(0x08); 
+        LCD_WR_DATA8(0x82);
+        LCD_WR_DATA8(0x27);  
+ 
+        LCD_WR_REG(0xF2);    // 3Gamma Function Disable 
+        LCD_WR_DATA8(0x00); 
+ 
+        LCD_WR_REG(0x26);    //Gamma curve selected 
+        LCD_WR_DATA8(0x01); 
+ 
+        LCD_WR_REG(0xE0);    //Set Gamma 
+        LCD_WR_DATA8(0x0F); 
+        LCD_WR_DATA8(0x31); 
+        LCD_WR_DATA8(0x2B); 
+        LCD_WR_DATA8(0x0C); 
+        LCD_WR_DATA8(0x0E); 
+        LCD_WR_DATA8(0x08); 
+        LCD_WR_DATA8(0x4E); 
+        LCD_WR_DATA8(0xF1); 
+        LCD_WR_DATA8(0x37); 
+        LCD_WR_DATA8(0x07); 
+        LCD_WR_DATA8(0x10); 
+        LCD_WR_DATA8(0x03); 
+        LCD_WR_DATA8(0x0E); 
+        LCD_WR_DATA8(0x09); 
+        LCD_WR_DATA8(0x00); 
+
+        LCD_WR_REG(0XE1);    //Set Gamma 
+        LCD_WR_DATA8(0x00); 
+        LCD_WR_DATA8(0x0E); 
+        LCD_WR_DATA8(0x14); 
+        LCD_WR_DATA8(0x03); 
+        LCD_WR_DATA8(0x11); 
+        LCD_WR_DATA8(0x07); 
+        LCD_WR_DATA8(0x31); 
+        LCD_WR_DATA8(0xC1); 
+        LCD_WR_DATA8(0x48); 
+        LCD_WR_DATA8(0x08); 
+        LCD_WR_DATA8(0x0F); 
+        LCD_WR_DATA8(0x0C); 
+        LCD_WR_DATA8(0x31); 
+        LCD_WR_DATA8(0x36); 
+        LCD_WR_DATA8(0x0F); 
+ 
+        LCD_WR_REG(0x11);    //Exit Sleep 
+        delay_ms(120);
+				
+        LCD_WR_REG(0x29);    //Display on 
+        LCD_WR_REG(0x2c); 
+		LCD_Clear(WHITE);
 	
 }  
 //清屏函数

@@ -27,7 +27,7 @@
 //psc：时钟预分频数
 //这里使用的是定时器3!
 
-uint16_t adcx_DutyCycle[6],adcx_Freq[6];
+uint16_t adcx_DutyCycle[8],adcx_Freq[8];
 uint8_t channel_i;
 
 void TIM2_Int_Init(u16 arr,u16 psc)
@@ -60,7 +60,7 @@ void TIM2_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStruct.TIM_Pulse = 100;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
     TIM_OC1Init(TIM2, &TIM_OCInitStruct);
  
     TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable);
@@ -101,7 +101,7 @@ void TIM4_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStruct.TIM_Pulse = 100;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
     TIM_OC1Init(TIM4, &TIM_OCInitStruct);
 		//TIM_OC4Init(TIM4, &TIM_OCInitStruct);
     TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
@@ -175,7 +175,7 @@ void TIM8_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStruct.TIM_Pulse = 100;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
     TIM_OC1Init(TIM8, &TIM_OCInitStruct);
  
     TIM_OC1PreloadConfig(TIM8, TIM_OCPreload_Enable);
@@ -258,7 +258,7 @@ void TIM3_PWM_Init(u16 arr,u16 psc)
 	//初始化TIM3 Channel2 PWM模式	 
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //选择定时器模式:TIM脉冲宽度调制模式2
  	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //比较输出使能
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; //输出极性:TIM输出比较极性高
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low; //输出极性:TIM输出比较极性高
 	//TIM_OC2Init(TIM3, &TIM_OCInitStructure);  //根据T指定的参数初始化外设TIM3 OC2
 TIM_OC4Init(TIM3, &TIM_OCInitStructure);
 	//TIM_OC2PreloadConfig(TIM3, TIM_OCPreload_Enable);  //使能TIM3在CCR2上的预装载寄存器
@@ -296,7 +296,7 @@ void TIM1_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     //TIM_OCInitStruct.TIM_Pulse = 36000;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
     TIM_OC1Init(TIM1, &TIM_OCInitStruct);
  
     TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
@@ -311,24 +311,24 @@ void PWM_Freq_DC(uint8_t ch,uint16_t dutycycle, uint16_t freq)
 {
 	uint16_t arr_peroid,compare_dutycycle,Var_psc=0,i;
 	
-	uint32_t arr_peroid_long;
+	uint32_t arr_peroid_long,arr_peroid_long_temp;
 	
 	arr_peroid_long = 72000000/(freq);
-	
+	arr_peroid_long_temp=arr_peroid_long;
 	for(i=0;i<100;i++)
 	{
-		if(arr_peroid_long>65535)
+		if(arr_peroid_long_temp>65535)
 		{
 			Var_psc++;
-			arr_peroid_long	=arr_peroid_long/	(Var_psc+1);
+			arr_peroid_long_temp	=arr_peroid_long/(Var_psc+1);
 		}
 		else
 		{break;}
 	}
 	
-	//arr_peroid_long	=arr_peroid_long/	(Var_psc+1);
+	arr_peroid_long	=arr_peroid_long/	(Var_psc+1);
 	arr_peroid = arr_peroid_long;	
-	compare_dutycycle = (arr_peroid*(dutycycle/100))/100;
+	compare_dutycycle = (arr_peroid*dutycycle)/100;
 	
 	switch (ch)
 	{	 	 	 		

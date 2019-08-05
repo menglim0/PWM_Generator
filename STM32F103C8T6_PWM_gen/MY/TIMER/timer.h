@@ -26,7 +26,7 @@ void TIM5_Int_Init(u16 arr,u16 psc);
 void TIM8_Int_Init(u16 arr,u16 psc);
 void PWM_Freq_DC(uint8_t ch,uint16_t dutycycle, uint16_t freq);
 
-extern uint16_t adcx_DutyCycle[6];
-extern uint16_t adcx_Freq[6];
+extern uint16_t adcx_DutyCycle[8];
+extern uint16_t adcx_Freq[8];
 extern uint8_t channel_i;
 #endif

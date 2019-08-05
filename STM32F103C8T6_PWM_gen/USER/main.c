@@ -69,58 +69,15 @@ u8 txbuf[16];
 
 /*for dispaly 1.8TFT below*/
 
-u8 state=0;
-void beepms(u16 va);
-void xianshi(void);//显示信息  
-void refshow(void);//刷新显示
 
 /*RTOS*/
 
 void Task1 (void *data);
 
-void Load_Drow_Dialog(void)
-{
-	LCD_Clear(WHITE);//清屏   
- 	POINT_COLOR=BLUE;//设置字体为蓝色 
-	LCD_ShowString(lcddev.width-24,0,200,16,16,"RST");//显示清屏区域
-  	POINT_COLOR=RED;//设置画笔蓝色 
-}
 
-void xianshi()//显示信息
-{ 
-	u8 index_Show;
-	BACK_COLOR=WHITE;
-	POINT_COLOR=RED;  	
-	LCD_ShowString(4,0,200,12,12,"CH FREQ DUTY");
-for(index_Show=0;index_Show<9;index_Show++)	
-	{
-		LCD_ShowString(8,(index_Show+1)*12,200,12,12,"CH1 Freq: 1024 Duty: 100%");  
+#define Freq_Position_X 100
+#define Duty_Position_X 100
 
-	}
-}
-
-void refshow(void)	 //刷新显示
-{
-	switch(state)
-	{
-		case 0:
-		LCD_Clear(WHITE);
-	    xianshi();
-		break;
-		case 1:
-		LCD_Clear(BLACK);	
-		break;
-		case 2:
-		LCD_Clear(RED);
-		break;
-		case 3:
-		LCD_Clear(GREEN);
-		break;
-		case 4:
-		LCD_Clear(BLUE);
-		break;
-	}	
-}
 
 
 
@@ -154,7 +111,7 @@ void LED_Init_G14(void)
 int main()
 {		
 	bool LED_State_01,Usart_Config_State;
-	int delayI,cnt=0,channel_i;
+	uint16_t delayI,cnt=0,channel_i;
 	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
 unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCycle_Old[8];
 	uint8_t adcx_Freq_Changed[8],adcx_DutyCycle_Changed[8];
@@ -169,9 +126,9 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 			NVIC_Configuration(); 	 //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
 	
-		uart_init(115200);	 //串口初始化为9600
+		uart_init(115200);	 //串口初始化为115200
 	/* */
-		My_InitTask();
+		//My_InitTask();
 
 		TIM1_Int_Init(6009,1000);	
 		TIM_SetCompare1(TIM1,800);         //设置占空比为1/3
@@ -211,7 +168,9 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	
 		delay(500);
 	SPI1_Init();	//SPI1初始化
+	delay(500);
 	LCD_Init();	  			
+	delay(500);
  	POINT_COLOR=RED;//设置字体为红色 
 	xianshi();	   //显示信息
 
@@ -227,18 +186,33 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	/* Start the scheduler. */
 	//vTaskStartScheduler();
 	
-	Usart_Config_State=GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
+	Usart_Config_State=!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
 	
 	while(1)
 	{
 	
-	delay(500);
+	delay(1000);
 			
 		if(Usart_Config_State==FALSE)
 		{
 			if(Usart1_Receive_Complete==TRUE)
 			{
-				Usart1_Send(DMA_Rece_Buf,Usart1_Rec_Cnt);
+				
+				if(Usart1_Rec_Cnt==16)
+				{
+					for(channel_i=0;channel_i<4;channel_i++)
+					{
+						
+						adcx_Freq[channel_i+4]=(DMA_Rece_Buf[2+channel_i*4]<<8)+DMA_Rece_Buf[3+channel_i*4];
+						adcx_DutyCycle[channel_i+4]=DMA_Rece_Buf[1+channel_i*4];
+//						txbuf[0+channel_i*4]=channel_i;					
+//						txbuf[1+channel_i*4]=dutycycle;
+//						txbuf[2+channel_i*4]=adcx_Freq[channel_i]>>8;
+//						txbuf[3+channel_i*4]=adcx_Freq[channel_i]&0xFF;
+					
+					}
+				}
+				//Usart1_Send(DMA_Rece_Buf,Usart1_Rec_Cnt);
 				Usart1_Receive_Complete=FALSE;
 			}
 		}
@@ -263,12 +237,8 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 	//	adcx_Freq_Raw[5] = Get_Adc_Average(ADC_Channel_6,100); // 读取转换的AD值
 	//	adcx_Freq_Raw[6] = Get_Adc_Average(ADC_Channel_7,100); // 读取转换的AD值
 		//adcx_Freq_Raw[6] = Get_Adc_Average(ADC_Channel_0,100); // 读取转换的AD值
-		//adcx_Freq_Raw[7] = Get_Adc_Average(ADC_Channel_1,100); // 读取转换的AD值
-		
-		
+		//adcx_Freq_Raw[7] = Get_Adc_Average(ADC_Channel_1,100); // 读取转换的AD值		
 
-		
-		
 		
 //		adcx_DutyCycle_Raw[4] = Get_Adc_Average(ADC_Channel_12,100); // 读取转换的AD值
 //		adcx_DutyCycle_Raw[5] = Get_Adc_Average(ADC_Channel_13,100); // 读取转换的AD值
@@ -281,6 +251,18 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		//adcx[ADC_index_i] = Get_Adc_Average(ADC_index_i+1,100); // 读取转换的AD值
 			adcx_Freq[ADC_index_i]=Get_Adc_Filter(adcx_Freq_Raw[ADC_index_i],100);
 			adcx_DutyCycle[ADC_index_i]=Get_Adc_Filter(adcx_DutyCycle_Raw[ADC_index_i],100);
+			
+			if(adcx_DutyCycle[ADC_index_i]>2050)
+			{
+				adcx_DutyCycle[ADC_index_i]=2050;
+			}
+			else if(adcx_DutyCycle[ADC_index_i]<50)
+			{
+			adcx_DutyCycle[ADC_index_i]=50;
+			}
+			
+			adcx_DutyCycle[ADC_index_i] = (adcx_DutyCycle[ADC_index_i]-50)/20;
+			
 			
 			if(adcx_Freq[ADC_index_i]!=adcx_Freq_Old[ADC_index_i])
 			{
@@ -315,7 +297,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 				for(channel_i=0;channel_i<4;channel_i++)
 				{
 					//Send_Buf_index=channel_i/4;
-					dutycycle=(adcx_DutyCycle[channel_i]*100)/4095;
+					dutycycle=adcx_DutyCycle[channel_i];
 					
 						txbuf[0+channel_i*4]=channel_i;					
 						txbuf[1+channel_i*4]=dutycycle;
@@ -337,6 +319,8 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		
 		for(channel_i=0;channel_i<4;channel_i++)
 		{
+				
+			
 			if((adcx_Freq_Changed[channel_i]==1) || (adcx_DutyCycle_Changed[channel_i]==1))
 			{
 			//display_PWM_Channel(channel_i+1,channel_i);
@@ -347,7 +331,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 	
 			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
-				
+					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 	
 				
 						
@@ -356,6 +340,13 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 			}
 		}
 		
+		if(Usart_Config_State==FALSE)
+		{
+				for(channel_i=0;channel_i<8;channel_i++)
+				{
+					display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
+				}
+		}
 	
 		
 		//disp_16x8x4_Char(32,1,jing2[]);
@@ -364,7 +355,12 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 			delay(200); 
 		}
 			cnt=cnt+1;
-		if(cnt>=8)
+		
+		for(i=0;i<8;i++)
+		{
+
+		}
+		if(cnt>=100)
 		{
 		cnt = 0;
 			//clear_screen();	
@@ -380,7 +376,7 @@ void Task1 (void *data)
 	data = data;
 
 	while (1) 
-	{
+	{ 
 		 
    PCout(13)=!PCout(13);            //  点亮LED 
 		vTaskDelay( 1000 / portTICK_RATE_MS ); 
