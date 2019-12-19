@@ -187,6 +187,8 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	//vTaskStartScheduler();
 	
 	Usart_Config_State=!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
+	//while(1)
+	//{}
 	
 	while(1)
 	{
@@ -329,7 +331,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 				
 				
 	
-			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
+			//PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
 					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 	

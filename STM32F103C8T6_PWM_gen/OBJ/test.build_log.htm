@@ -27,11 +27,29 @@ Project File Date:  07/07/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
+compiling main.c...
+..\MY\display\display.h(19): warning:  #1295-D: Deprecated declaration xianshi - give arg types
+  void xianshi();
+main.c(189): warning:  #188-D: enumerated type mixed with another type
+  	Usart_Config_State=!GPIO_ReadInputDataBit(
+PIOB,
+PIO_Pin_12);
+main.c(113): warning:  #177-D: variable "LED_State_01"  was declared but never referenced
+  	bool LED_State_01,Usart_Config_State;
+main.c(115): warning:  #177-D: variable "ADC_ConvertedValueLocal"  was declared but never referenced
+  	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
+main.c(115): warning:  #550-D: variable "ADC_ConvertedValueLocal2"  was set but never used
+  	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
+main.c(119): warning:  #177-D: variable "Send_Buf_index"  was declared but never referenced
+  	uint8_t ADC_index_i, Send_Buf_index;
+main.c(121): warning:  #177-D: variable "key"  was declared but never referenced
+  	u8 key=0;
+main.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=20152 RO-data=6772 RW-data=144 ZI-data=19504  
+Program Size: Code=20172 RO-data=7396 RW-data=144 ZI-data=19504  
 FromELF: creating hex file...
-"..\OBJ\test.axf" - 0 Error(s), 0 Warning(s).
-Build Time Elapsed:  00:00:00
+"..\OBJ\test.axf" - 0 Error(s), 7 Warning(s).
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

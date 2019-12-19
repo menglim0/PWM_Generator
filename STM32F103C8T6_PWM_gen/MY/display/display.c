@@ -6,10 +6,10 @@ u8 state=0;
 void display_Ch_Fre_Duty(u8 ch,u16 freq,u8 duty)
 {
 	u8 channel;
-	u16 pos_Freq_x=92,pos_Freq_y=16,pos_Duty_x=172,pos_Duty_y=16;
+	u16 pos_Freq_x=92+40,pos_Freq_y=16,pos_Duty_x=172+40+40,pos_Duty_y=16;
 	//LCD_Clear(WHITE); //清屏
 		channel = (ch-1)*20+35;
-	pos_Freq_y=(ch+3)*18+4;
+	pos_Freq_y=(ch+1)*24+4;
 	pos_Duty_y=pos_Freq_y;
 //void LCD_ShowxNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode)
 		//LCD_ShowxNum(26,channel,ch,1);
@@ -25,9 +25,10 @@ void display_Ch_Fre_Duty(u8 ch,u16 freq,u8 duty)
 //[6:1]:保留
 //[0]:0,非叠加显示;1,叠加显示.
 //void LCD_ShowxNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode)
-			LCD_Fill(pos_Freq_x,(ch+3)*18+4,pos_Freq_x+4*8,(ch+3)*18+4+16,0xFFFF);
+			//LCD_Fill(pos_Freq_x,(ch+3)*18+4,pos_Freq_x+4*8,(ch+3)*18+4+16,0xFFFF);
+			LCD_Fill(pos_Freq_x,pos_Freq_y,pos_Freq_x+4*8,(ch+1)*24+4+16,0xFFFF);
 		LCD_ShowxNum(pos_Freq_x,pos_Freq_y,freq,4,16,0x01);
-		LCD_Fill(pos_Duty_x,(ch+3)*18+4,pos_Duty_x+3*8,(ch+3)*18+4+16,0xFFFF);
+		LCD_Fill(pos_Duty_x,pos_Duty_y,pos_Duty_x+3*8,(ch+1)*24+4+16,0xFFFF);
 		LCD_ShowxNum(pos_Duty_x,pos_Duty_y,duty,3,16,0x01);	
 		
 		
@@ -52,12 +53,12 @@ void xianshi()//显示信息
 	//LCD_ShowString(4,0,200,12,12,"CH FREQ DUTY");
 for(index_Show=0;index_Show<8;index_Show++)	
 	{
+		/*
 		LCD_ShowString(12,(index_Show+3)*18+4,300,16,16,"PWM1 Freq:1024 Duty:100 %");
-
-//在指定区域内填充单个颜色
-//(sx,sy),(ex,ey):填充矩形对角坐标,区域大小为:(ex-sx+1)*(ey-sy+1)   
-//color:要填充的颜色
-//void LCD_Fill(u16 sx,u16 sy,u16 ex,u16 ey,u16 color)	
+		*/
+		LCD_ShowString(12,(index_Show+1)*24+4,300,16,16,"PWM  Frequency:1024 DutyCycle:100 %");
+		
+		LCD_ShowxNum(36,(index_Show+1)*24+4,index_Show+1,1,16,0x01);
 		display_Ch_Fre_Duty(index_Show,1000,50);
 	}
 	
