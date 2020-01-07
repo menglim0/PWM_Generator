@@ -2,7 +2,7 @@
 #define __DELAY_H
 #include "sys.h"
 
-void delay_init();	 
+void delay_init(void);	 
 void delay(int i);  
 /*ÑÓÊ±£º1usµÄi±¶*/
 void delay_us(int i);       

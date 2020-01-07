@@ -5,10 +5,10 @@ u8 state=0;
 
 void display_Ch_Fre_Duty(u8 ch,u16 freq,u8 duty)
 {
-	u8 channel;
+//	u8 channel;
 	u16 pos_Freq_x=36+48,pos_Freq_y=16,pos_Duty_x=80+40+40,pos_Duty_y=16;
 	//LCD_Clear(WHITE); //清屏
-		channel = (ch-1)*20+35;
+	//channel = (ch-1)*20+35;
 	pos_Freq_y=(ch+1)*24+4;
 	pos_Duty_y=pos_Freq_y;
 
@@ -25,7 +25,7 @@ void xianshi()//显示信息
 { 
 	u8 index_Show;
 	u8 pos_x;
-	u16 lx,ly;
+	//u16 lx,ly;
 	BACK_COLOR=WHITE;
 	POINT_COLOR=RED;
 	  LCD_ShowString(80,5,"PWM Display");
@@ -39,7 +39,7 @@ for(index_Show=0;index_Show<8;index_Show++)
 	}
 	//LCD_ShowString(10,5,"LCD_W:");	LCD_ShowNum(70,55,LCD_W,3);
 	//LCD_ShowString(110,5,"LCD_H:");LCD_ShowNum(160,55,LCD_H,3);	
-	lx=10;ly=75;	
+	//lx=10;ly=75;	
 
 
 	
