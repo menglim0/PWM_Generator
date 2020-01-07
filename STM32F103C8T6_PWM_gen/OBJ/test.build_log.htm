@@ -22,34 +22,30 @@ Dialog DLL:      TARMSTM.DLL V1.66.0.0
  
 <h2>Project:</h2>
 D:\SmartGit_Repository\PWM_Generator\STM32F103C8T6_PWM_gen\USER\test.uvproj
-Project File Date:  07/07/2019
+Project File Date:  01/07/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling main.c...
+compiling display.c...
 ..\MY\display\display.h(19): warning:  #1295-D: Deprecated declaration xianshi - give arg types
   void xianshi();
-main.c(189): warning:  #188-D: enumerated type mixed with another type
-  	Usart_Config_State=!GPIO_ReadInputDataBit(
-PIOB,
-PIO_Pin_12);
-main.c(113): warning:  #177-D: variable "LED_State_01"  was declared but never referenced
-  	bool LED_State_01,Usart_Config_State;
-main.c(115): warning:  #177-D: variable "ADC_ConvertedValueLocal"  was declared but never referenced
-  	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
-main.c(115): warning:  #550-D: variable "ADC_ConvertedValueLocal2"  was set but never used
-  	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
-main.c(119): warning:  #177-D: variable "Send_Buf_index"  was declared but never referenced
-  	uint8_t ADC_index_i, Send_Buf_index;
-main.c(121): warning:  #177-D: variable "key"  was declared but never referenced
-  	u8 key=0;
-main.c: 7 warnings, 0 errors
+..\MY\display\display.c(8): warning:  #550-D: variable "channel"  was set but never used
+  	u8 channel;
+..\MY\display\display.c(28): warning:  #550-D: variable "lx"  was set but never used
+  	u16 lx,ly;
+..\MY\display\display.c(28): warning:  #550-D: variable "ly"  was set but never used
+  	u16 lx,ly;
+..\MY\display\display.c: 4 warnings, 0 errors
+compiling lcd.c...
+..\MY\delay\delay.h(5): warning:  #1295-D: Deprecated declaration delay_init - give arg types
+  void delay_init();	 
+..\MY\lcd\lcd.c: 1 warning, 0 errors
 linking...
-Program Size: Code=20172 RO-data=7396 RW-data=144 ZI-data=19504  
+Program Size: Code=16368 RO-data=1856 RW-data=152 ZI-data=19488  
 FromELF: creating hex file...
-"..\OBJ\test.axf" - 0 Error(s), 7 Warning(s).
-Build Time Elapsed:  00:00:03
+"..\OBJ\test.axf" - 0 Error(s), 5 Warning(s).
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

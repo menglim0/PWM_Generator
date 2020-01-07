@@ -11,7 +11,7 @@
 #define LED3_ON GPIO_ResetBits(GPIOB,GPIO_Pin_5)
 #define LED3_REV GPIO_WriteBit(GPIOB, GPIO_Pin_5,(BitAction)(1-(GPIO_ReadOutputDataBit(GPIOB, GPIO_Pin_5))))
 */
-void LED_Init(void);
+extern void LED_Init(void);
 
 #define LED1 PEout(5)// PE5	
 
