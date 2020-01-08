@@ -322,7 +322,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 				
 				
 	
-			//PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
+			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
 					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 	
