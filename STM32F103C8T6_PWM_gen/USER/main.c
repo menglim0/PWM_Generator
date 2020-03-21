@@ -312,7 +312,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		
 		for(channel_i=0;channel_i<4;channel_i++)
 		{
-				
+				adcx_Freq[channel_i]=1000;
 			
 			if((adcx_Freq_Changed[channel_i]==1) || (adcx_DutyCycle_Changed[channel_i]==1))
 			{
@@ -335,7 +335,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		
 		if(Usart_Config_State==FALSE)
 		{
-				for(channel_i=0;channel_i<8;channel_i++)
+				for(channel_i=0;channel_i<1;channel_i++)
 				{
 					display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 				}

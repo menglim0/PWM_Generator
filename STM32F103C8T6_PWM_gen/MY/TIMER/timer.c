@@ -296,7 +296,7 @@ void TIM1_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     //TIM_OCInitStruct.TIM_Pulse = 36000;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
+    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
     TIM_OC1Init(TIM1, &TIM_OCInitStruct);
  
     TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
