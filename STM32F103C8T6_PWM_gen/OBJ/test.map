@@ -952,13 +952,13 @@ Image Symbol Table
     delay                                    0x08003721   Thumb Code    22  delay.o(.text)
     delay_us                                 0x08003737   Thumb Code    26  delay.o(.text)
     delay_ms                                 0x08003751   Thumb Code    16  delay.o(.text)
-    TIM2_Int_Init                            0x08003761   Thumb Code   152  timer.o(.text)
-    TIM4_Int_Init                            0x080037f9   Thumb Code   142  timer.o(.text)
-    TIM5_Int_Init                            0x08003887   Thumb Code     2  timer.o(.text)
-    TIM8_Int_Init                            0x08003889   Thumb Code   144  timer.o(.text)
-    TIM3_PWM_Init                            0x08003919   Thumb Code   122  timer.o(.text)
-    TIM1_Int_Init                            0x08003993   Thumb Code   140  timer.o(.text)
-    PWM_Freq_DC                              0x08003a1f   Thumb Code   324  timer.o(.text)
+    TIM2_Int_Init                            0x08003761   Thumb Code   154  timer.o(.text)
+    TIM4_Int_Init                            0x080037fb   Thumb Code   142  timer.o(.text)
+    TIM5_Int_Init                            0x08003889   Thumb Code     2  timer.o(.text)
+    TIM8_Int_Init                            0x0800388b   Thumb Code   144  timer.o(.text)
+    TIM3_PWM_Init                            0x0800391b   Thumb Code   122  timer.o(.text)
+    TIM1_Int_Init                            0x08003995   Thumb Code   140  timer.o(.text)
+    PWM_Freq_DC                              0x08003a21   Thumb Code   324  timer.o(.text)
     Adc_Init                                 0x08003b89   Thumb Code   172  adc.o(.text)
     Get_Adc                                  0x08003c35   Thumb Code    46  adc.o(.text)
     Get_Adc_Average                          0x08003c63   Thumb Code    46  adc.o(.text)
@@ -1224,11 +1224,11 @@ Image component sizes
         42          0          0          0          0       2013   sys.o
        480         38          0         20          0       1791   system_stm32f10x.o
       2484        184          0         60        200      12054   tasks.o
-      1064         44          0          0         32       3847   timer.o
+      1064         42          0          0         32       3847   timer.o
        448         24          0          8        200       3793   usart.o
 
     ----------------------------------------------------------------------
-     19636        840       6772        144      19408     409627   Object Totals
+     19636        838       6772        144      19408     409627   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          0          3          6          0   (incl. Padding)
 
@@ -1280,9 +1280,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     20152        852       6772        144      19504     407483   Grand Totals
-     20152        852       6772        144      19504     407483   ELF Image Totals
-     20152        852       6772        144          0          0   ROM Totals
+     20152        850       6772        144      19504     407483   Grand Totals
+     20152        850       6772        144      19504     407483   ELF Image Totals
+     20152        850       6772        144          0          0   ROM Totals
 
 ==============================================================================
 
