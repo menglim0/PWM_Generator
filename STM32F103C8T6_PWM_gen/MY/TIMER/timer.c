@@ -30,6 +30,10 @@
 uint16_t adcx_DutyCycle[8],adcx_Freq[8];
 uint8_t channel_i;
 
+
+
+#define PWM_Out_Polarity TIM_OCPolarity_High
+
 void TIM2_Int_Init(u16 arr,u16 psc)
 {
 
@@ -60,7 +64,7 @@ void TIM2_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStruct.TIM_Pulse = 100;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
+    TIM_OCInitStruct.TIM_OCPolarity = PWM_Out_Polarity;
     TIM_OC1Init(TIM2, &TIM_OCInitStruct);
  
     TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable);
@@ -101,7 +105,7 @@ void TIM4_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStruct.TIM_Pulse = 100;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
+    TIM_OCInitStruct.TIM_OCPolarity = PWM_Out_Polarity;
     TIM_OC1Init(TIM4, &TIM_OCInitStruct);
 		//TIM_OC4Init(TIM4, &TIM_OCInitStruct);
     TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);
@@ -175,7 +179,7 @@ void TIM8_Int_Init(u16 arr,u16 psc)
     TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;
     TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStruct.TIM_Pulse = 100;
-    TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_Low;
+    TIM_OCInitStruct.TIM_OCPolarity = PWM_Out_Polarity;
     TIM_OC1Init(TIM8, &TIM_OCInitStruct);
  
     TIM_OC1PreloadConfig(TIM8, TIM_OCPreload_Enable);
@@ -258,7 +262,7 @@ void TIM3_PWM_Init(u16 arr,u16 psc)
 	//初始化TIM3 Channel2 PWM模式	 
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //选择定时器模式:TIM脉冲宽度调制模式2
  	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //比较输出使能
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low; //输出极性:TIM输出比较极性高
+	TIM_OCInitStructure.TIM_OCPolarity = PWM_Out_Polarity; //输出极性:TIM输出比较极性高
 	//TIM_OC2Init(TIM3, &TIM_OCInitStructure);  //根据T指定的参数初始化外设TIM3 OC2
 TIM_OC4Init(TIM3, &TIM_OCInitStructure);
 	//TIM_OC2PreloadConfig(TIM3, TIM_OCPreload_Enable);  //使能TIM3在CCR2上的预装载寄存器
