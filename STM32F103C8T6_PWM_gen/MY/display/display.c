@@ -67,7 +67,7 @@ for(index_Show=0;index_Show<8;index_Show++)
 		LCD_ShowString(12,(index_Show+1)*24+4,300,16,16,"PWM  Frequency:1024 DutyCycle:100 %");
 		
 		LCD_ShowxNum(36,(index_Show+1)*24+4,index_Show+1,1,16,0x01);
->>>>>>> origin/master
+
 		display_Ch_Fre_Duty(index_Show,1000,50);
 	}
 	
