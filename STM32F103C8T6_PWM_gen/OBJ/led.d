@@ -1,5 +1,5 @@
-..\obj\led.o: ..\MY\LED\led.c
-..\obj\led.o: ..\MY\inc\led.h
+..\obj\led.o: H:\MY\led\led.c
+..\obj\led.o: H:\MY\inc\led.h
 ..\obj\led.o: ..\CMSIS\stm32f10x.h
 ..\obj\led.o: ..\CMSIS\core_cm3.h
 ..\obj\led.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

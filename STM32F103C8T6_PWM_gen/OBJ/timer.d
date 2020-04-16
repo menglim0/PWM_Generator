@@ -1,6 +1,6 @@
-..\obj\timer.o: ..\MY\TIMER\timer.c
-..\obj\timer.o: ..\MY\TIMER\timer.h
-..\obj\timer.o: ..\MY\sys\sys.h
+..\obj\timer.o: H:\MY\TIMER\timer.c
+..\obj\timer.o: H:\MY\TIMER\timer.h
+..\obj\timer.o: H:\MY\sys\sys.h
 ..\obj\timer.o: ..\CMSIS\stm32f10x.h
 ..\obj\timer.o: ..\CMSIS\core_cm3.h
 ..\obj\timer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -30,4 +30,4 @@
 ..\obj\timer.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\timer.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\timer.o: ..\FWLib\inc\misc.h
-..\obj\timer.o: ..\MY\inc\led.h
+..\obj\timer.o: H:\MY\inc\led.h

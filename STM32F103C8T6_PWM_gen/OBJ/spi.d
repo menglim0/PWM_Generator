@@ -1,6 +1,6 @@
-..\obj\spi.o: ..\MY\SPI\spi.c
-..\obj\spi.o: ..\MY\SPI\spi.h
-..\obj\spi.o: ..\MY\sys\sys.h
+..\obj\spi.o: H:\MY\SPI\spi.c
+..\obj\spi.o: H:\MY\SPI\spi.h
+..\obj\spi.o: H:\MY\sys\sys.h
 ..\obj\spi.o: ..\CMSIS\stm32f10x.h
 ..\obj\spi.o: ..\CMSIS\core_cm3.h
 ..\obj\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -30,5 +30,5 @@
 ..\obj\spi.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\spi.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\spi.o: ..\FWLib\inc\misc.h
-..\obj\spi.o: ..\MY\usart\usart.h
+..\obj\spi.o: H:\MY\usart\usart.h
 ..\obj\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

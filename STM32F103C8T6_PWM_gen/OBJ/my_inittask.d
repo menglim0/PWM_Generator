@@ -1,5 +1,5 @@
-..\obj\my_inittask.o: ..\MY\My_InitTask.c
-..\obj\my_inittask.o: ..\MY\My_InitTask.h
+..\obj\my_inittask.o: H:\MY\My_InitTask.c
+..\obj\my_inittask.o: H:\MY\My_InitTask.h
 ..\obj\my_inittask.o: ..\CMSIS\stm32f10x.h
 ..\obj\my_inittask.o: ..\CMSIS\core_cm3.h
 ..\obj\my_inittask.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

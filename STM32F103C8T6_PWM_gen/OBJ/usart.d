@@ -1,5 +1,5 @@
-..\obj\usart.o: ..\MY\usart\usart.c
-..\obj\usart.o: ..\MY\sys\sys.h
+..\obj\usart.o: H:\MY\usart\usart.c
+..\obj\usart.o: H:\MY\sys\sys.h
 ..\obj\usart.o: ..\CMSIS\stm32f10x.h
 ..\obj\usart.o: ..\CMSIS\core_cm3.h
 ..\obj\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,5 +29,5 @@
 ..\obj\usart.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\usart.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\usart.o: ..\FWLib\inc\misc.h
-..\obj\usart.o: ..\MY\usart\usart.h
+..\obj\usart.o: H:\MY\usart\usart.h
 ..\obj\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

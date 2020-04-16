@@ -1,4 +1,4 @@
-..\obj\vios.o: ..\MY\vios.c
+..\obj\vios.o: H:\MY\vios.c
 ..\obj\vios.o: ..\CMSIS\stm32f10x.h
 ..\obj\vios.o: ..\CMSIS\core_cm3.h
 ..\obj\vios.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -28,4 +28,4 @@
 ..\obj\vios.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\vios.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\vios.o: ..\FWLib\inc\misc.h
-..\obj\vios.o: ..\MY\vios.h
+..\obj\vios.o: H:\MY\vios.h

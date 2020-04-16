@@ -1,5 +1,5 @@
-..\obj\chinese_code.o: ..\MY\code\chinese_code.c
-..\obj\chinese_code.o: ..\MY\code\chinese_code.h
+..\obj\chinese_code.o: H:\MY\code\chinese_code.c
+..\obj\chinese_code.o: H:\MY\code\chinese_code.h
 ..\obj\chinese_code.o: ..\CMSIS\stm32f10x.h
 ..\obj\chinese_code.o: ..\CMSIS\core_cm3.h
 ..\obj\chinese_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,6 +29,6 @@
 ..\obj\chinese_code.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\chinese_code.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\chinese_code.o: ..\FWLib\inc\misc.h
-..\obj\chinese_code.o: ..\MY\lcd\lcd.h
-..\obj\chinese_code.o: ..\MY\sys\sys.h
+..\obj\chinese_code.o: H:\MY\lcd\lcd.h
+..\obj\chinese_code.o: H:\MY\sys\sys.h
 ..\obj\chinese_code.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

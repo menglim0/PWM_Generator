@@ -1,6 +1,6 @@
-..\obj\oled.o: ..\MY\OLED\oled.c
-..\obj\oled.o: ..\MY\OLED\oled.h
-..\obj\oled.o: ..\MY\sys\sys.h
+..\obj\oled.o: H:\MY\OLED\oled.c
+..\obj\oled.o: H:\MY\OLED\oled.h
+..\obj\oled.o: H:\MY\sys\sys.h
 ..\obj\oled.o: ..\CMSIS\stm32f10x.h
 ..\obj\oled.o: ..\CMSIS\core_cm3.h
 ..\obj\oled.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -31,5 +31,5 @@
 ..\obj\oled.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\oled.o: ..\FWLib\inc\misc.h
 ..\obj\oled.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-..\obj\oled.o: ..\MY\OLED\oledfont.h
-..\obj\oled.o: ..\MY\delay\delay.h
+..\obj\oled.o: H:\MY\OLED\oledfont.h
+..\obj\oled.o: H:\MY\delay\delay.h

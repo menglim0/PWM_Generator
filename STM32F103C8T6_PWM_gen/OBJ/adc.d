@@ -1,4 +1,4 @@
-..\obj\adc.o: ..\MY\adc\adc.c
+..\obj\adc.o: H:\MY\adc\adc.c
 ..\obj\adc.o: ..\FWLib\inc\stm32f10x_adc.h
 ..\obj\adc.o: ..\CMSIS\stm32f10x.h
 ..\obj\adc.o: ..\CMSIS\core_cm3.h
@@ -29,5 +29,5 @@
 ..\obj\adc.o: ..\FWLib\inc\stm32f10x_usart.h
 ..\obj\adc.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\adc.o: ..\FWLib\inc\misc.h
-..\obj\adc.o: ..\MY\adc\adc.h
-..\obj\adc.o: ..\MY\delay\delay.h
+..\obj\adc.o: H:\MY\adc\adc.h
+..\obj\adc.o: H:\MY\delay\delay.h

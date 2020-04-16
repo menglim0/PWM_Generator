@@ -1,5 +1,5 @@
-..\obj\sys.o: ..\MY\sys\sys.c
-..\obj\sys.o: ..\MY\sys\sys.h
+..\obj\sys.o: H:\MY\sys\sys.c
+..\obj\sys.o: H:\MY\sys\sys.h
 ..\obj\sys.o: ..\CMSIS\stm32f10x.h
 ..\obj\sys.o: ..\CMSIS\core_cm3.h
 ..\obj\sys.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

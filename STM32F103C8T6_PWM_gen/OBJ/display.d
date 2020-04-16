@@ -1,6 +1,6 @@
-..\obj\display.o: ..\MY\display\display.c
-..\obj\display.o: ..\MY\display\display.h
-..\obj\display.o: ..\MY\sys\sys.h
+..\obj\display.o: H:\MY\display\display.c
+..\obj\display.o: H:\MY\display\display.h
+..\obj\display.o: H:\MY\sys\sys.h
 ..\obj\display.o: ..\CMSIS\stm32f10x.h
 ..\obj\display.o: ..\CMSIS\core_cm3.h
 ..\obj\display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -31,4 +31,4 @@
 ..\obj\display.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\display.o: ..\FWLib\inc\misc.h
 ..\obj\display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-..\obj\display.o: ..\MY\lcd\lcd.h
+..\obj\display.o: H:\MY\lcd\lcd.h

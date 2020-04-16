@@ -1,6 +1,6 @@
-..\obj\lcd.o: ..\MY\lcd\lcd.c
-..\obj\lcd.o: ..\MY\lcd\lcd.h
-..\obj\lcd.o: ..\MY\sys\sys.h
+..\obj\lcd.o: H:\MY\lcd\lcd.c
+..\obj\lcd.o: H:\MY\lcd\lcd.h
+..\obj\lcd.o: H:\MY\sys\sys.h
 ..\obj\lcd.o: ..\CMSIS\stm32f10x.h
 ..\obj\lcd.o: ..\CMSIS\core_cm3.h
 ..\obj\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -31,8 +31,8 @@
 ..\obj\lcd.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\lcd.o: ..\FWLib\inc\misc.h
 ..\obj\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-..\obj\lcd.o: ..\MY\lcd\font.h
-..\obj\lcd.o: ..\MY\usart\usart.h
+..\obj\lcd.o: H:\MY\lcd\font.h
+..\obj\lcd.o: H:\MY\usart\usart.h
 ..\obj\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\lcd.o: ..\MY\delay\delay.h
-..\obj\lcd.o: ..\MY\SPI\spi.h
+..\obj\lcd.o: H:\MY\delay\delay.h
+..\obj\lcd.o: H:\MY\SPI\spi.h

@@ -6,7 +6,6 @@
 固件库  ：V3.5
 技术论坛：www.doflye.net
 备    注：通过简单修改可以移植到其他开发板，部分资料来源于网络。
-master branch
 ---------------------------------------------------------------------------------*/
 #include <stdio.h>
 #include "stm32f10x.h"
@@ -67,7 +66,6 @@ ADC Port: PA2-7,PB0,1;PC0,1,2,3
 /******************USART0 PA9/PA10****/
 
 u8 txbuf[16];
-#define Usart_Slave_Chn4_For_CP 1
 
 /*for dispaly 1.8TFT below*/
 
@@ -295,13 +293,6 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 			adcx_DutyCycle_Old[ADC_index_i] =adcx_DutyCycle[ADC_index_i];
 		}
 		
-		if(Usart_Slave_Chn4_For_CP==1)
-		{
-		
-		adcx_DutyCycle[3]=50;
-		adcx_Freq[3]=1000;
-		}
-		
 		if(Usart_Config_State==TRUE)
 		{
 			
@@ -326,11 +317,11 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		ADC_ConvertedValueLocal2=adcx_Freq[0];
 		//display_PWM_Channel(1,1);
 		
-
+		
 		
 		for(channel_i=0;channel_i<4;channel_i++)
 		{
-				
+				adcx_DutyCycle[channel_i]=50;
 			
 			if((adcx_Freq_Changed[channel_i]==1) || (adcx_DutyCycle_Changed[channel_i]==1))
 			{
@@ -340,7 +331,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 				
 				
 	
-			//PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
+			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
 					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 	

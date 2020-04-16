@@ -375,7 +375,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\FWLib\inc;..\CMSIS;..\MY\inc;..\MY\code;..\MY\lcd;..\MY\delay;..\MY\sys;..\MY\TIMER;..\MY\adc;..\MY\OLED;..\MY\usart;..\MY\SPI;..\MY\display;..\FreeRTOS;..\FreeRTOS\portable;..\FreeRTOS\include;..\MY</IncludePath>
+              <IncludePath>..\USER;..\FWLib\inc;..\CMSIS;H:\MY\inc;H:\MY\code;H:\MY\lcd;H:\MY\delay;H:\MY\sys;H:\MY\TIMER;H:\MY\adc;H:\MY\OLED;H:\MY\usart;H:\MY\SPI;H:\MY\display;..\FreeRTOS;..\FreeRTOS\portable;..\FreeRTOS\include;H:\MY</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -432,7 +432,7 @@
             <File>
               <FileName>sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\MY\sys\sys.c</FilePath>
+              <FilePath>H:\MY\sys\sys.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -582,61 +582,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>MY</GroupName>
-          <Files>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\LED\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\lcd\lcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\delay\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\TIMER\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\adc\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\usart\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\SPI\spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\display\display.c</FilePath>
-            </File>
-            <File>
-              <FileName>My_InitTask.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\My_InitTask.c</FilePath>
-            </File>
-            <File>
-              <FileName>vios.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MY\vios.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>FreeRTOS</GroupName>
           <Files>
             <File>
@@ -673,6 +618,66 @@
               <FileName>port.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\FreeRTOS\portable\port.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>My</GroupName>
+          <Files>
+            <File>
+              <FileName>My_InitTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\My_InitTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>vios.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\vios.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\adc\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>chinese_code.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\code\chinese_code.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\delay\delay.c</FilePath>
+            </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\display\display.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\lcd\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\led\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\SPI\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\TIMER\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>H:\MY\usart\usart.c</FilePath>
             </File>
           </Files>
         </Group>
