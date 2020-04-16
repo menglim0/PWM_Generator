@@ -110,16 +110,15 @@ void LED_Init_G14(void)
 //-----------------------------
 int main()
 {		
-	bool LED_State_01,Usart_Config_State;
+	bool Usart_Config_State;
 	uint16_t delayI,cnt=0,channel_i;
 	uint16_t ADC_ConvertedValueLocal,ADC_ConvertedValueLocal2; 
 unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCycle_Old[8];
 	uint8_t adcx_Freq_Changed[8],adcx_DutyCycle_Changed[8];
 	uint16_t dutycycle;
-	uint8_t ADC_index_i, Send_Buf_index;
+	uint8_t ADC_index_i;
 		u16 i=0;	 
-	u8 key=0;
-	
+
 	//LED_Init_G14();
   LED_Init();	
 	delay_init();	
@@ -176,14 +175,17 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	xianshi();	   //显示信息
 
 	
-	Usart_Config_State=!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
+	Usart_Config_State=(bool)(!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12));
 	
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	 //使能A端口时钟
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;	 
+ 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
+ 	GPIO_Init(GPIOA, &GPIO_InitStructure);	  //初始化GPIOD3,6
 	
 	while(1)
 	{
-	
-	delay(1000);
-			
+			delay(1000);	
 		if(Usart_Config_State==FALSE)
 		{
 			if(Usart1_Receive_Complete==TRUE)
@@ -303,14 +305,14 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 			
 	
 		
-		ADC_ConvertedValueLocal2=adcx_Freq[0];
+		//ADC_ConvertedValueLocal2=adcx_Freq[0];
 		//display_PWM_Channel(1,1);
 		
 		
 		
 		for(channel_i=0;channel_i<4;channel_i++)
 		{
-				
+				adcx_Freq[channel_i]=1000;
 			
 			if((adcx_Freq_Changed[channel_i]==1) || (adcx_DutyCycle_Changed[channel_i]==1))
 			{
@@ -320,7 +322,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 				
 				
 	
-			//PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
+			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
 					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 	
@@ -333,7 +335,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		
 		if(Usart_Config_State==FALSE)
 		{
-				for(channel_i=0;channel_i<8;channel_i++)
+				for(channel_i=0;channel_i<1;channel_i++)
 				{
 					display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 				}
@@ -370,7 +372,7 @@ void Task1 (void *data)
 	{ 
 		 
    PCout(13)=!PCout(13);            //  点亮LED 
-		vTaskDelay( 10); 
+		//vTaskDelay( 10); 
 	
 		
 

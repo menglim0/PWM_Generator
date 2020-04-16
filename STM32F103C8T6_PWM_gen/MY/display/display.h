@@ -16,6 +16,6 @@
 
 void display_Ch_Fre_Duty(u8 ch,u16 freq,u8 duty);
 void Load_Drow_Dialog(void);
-void xianshi();
+void xianshi(void);
 
 #endif

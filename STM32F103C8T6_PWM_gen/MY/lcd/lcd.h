@@ -18,7 +18,8 @@
 #ifndef __LCD_H
 #define __LCD_H			  	 
 #include "sys.h"
-#include "stdlib.h"	   
+#include "stdlib.h"
+#include "stm32f10x.h"
 #define LCD_W 240
 #define LCD_H 240
 #define	u8 unsigned char
@@ -37,21 +38,38 @@
 #define	Brightness	0xFF 
 #define X_WIDTH 	128
 #define Y_WIDTH 	64	    						  
-//-----------------OLED端口定义----------------  					   
-#define OLED_SCLK_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_5)//CLK
-#define OLED_SCLK_Set() GPIO_SetBits(GPIOA,GPIO_Pin_5)
+//-----------------OLED端口定义----------------  	
 
-#define OLED_SDIN_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_7)//DIN
-#define OLED_SDIN_Set() GPIO_SetBits(GPIOA,GPIO_Pin_7)
+//#define OLED_SCLK_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_5)//CLK
+//#define OLED_SCLK_Set() GPIO_SetBits(GPIOA,GPIO_Pin_5)
 
-#define OLED_RST_Clr() GPIO_ResetBits(GPIOB,GPIO_Pin_0)//RES
-#define OLED_RST_Set() GPIO_SetBits(GPIOB,GPIO_Pin_0)
+//#define OLED_SDIN_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_7)//DIN
+//#define OLED_SDIN_Set() GPIO_SetBits(GPIOA,GPIO_Pin_7)
 
-#define OLED_DC_Clr() GPIO_ResetBits(GPIOB,GPIO_Pin_1)//DC
-#define OLED_DC_Set() GPIO_SetBits(GPIOB,GPIO_Pin_1)
+//#define OLED_RST_Clr() GPIO_ResetBits(GPIOB,GPIO_Pin_0)//RES
+//#define OLED_RST_Set() GPIO_SetBits(GPIOB,GPIO_Pin_0)
+
+//#define OLED_DC_Clr() GPIO_ResetBits(GPIOB,GPIO_Pin_1)//DC
+//#define OLED_DC_Set() GPIO_SetBits(GPIOB,GPIO_Pin_1)
+// 		     
+//#define OLED_BLK_Clr()  GPIO_ResetBits(GPIOA,GPIO_Pin_4)//CS
+//#define OLED_BLK_Set()  GPIO_SetBits(GPIOA,GPIO_Pin_4)
+
+
+#define OLED_SCLK_Clr() GPIO_ResetBits(GPIOB,GPIO_Pin_3)//CLK
+#define OLED_SCLK_Set() GPIO_SetBits(GPIOB,GPIO_Pin_3)
+
+#define OLED_SDIN_Clr() GPIO_ResetBits(GPIOB,GPIO_Pin_5)//DIN
+#define OLED_SDIN_Set() GPIO_SetBits(GPIOB,GPIO_Pin_5)
+
+#define OLED_RST_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_11)//RES
+#define OLED_RST_Set() GPIO_SetBits(GPIOA,GPIO_Pin_11)
+
+#define OLED_DC_Clr() GPIO_ResetBits(GPIOA,GPIO_Pin_12)//DC
+#define OLED_DC_Set() GPIO_SetBits(GPIOA,GPIO_Pin_12)
  		     
-#define OLED_BLK_Clr()  GPIO_ResetBits(GPIOA,GPIO_Pin_4)//CS
-#define OLED_BLK_Set()  GPIO_SetBits(GPIOA,GPIO_Pin_4)
+#define OLED_BLK_Clr()  GPIO_ResetBits(GPIOA,GPIO_Pin_15)//CS
+#define OLED_BLK_Set()  GPIO_SetBits(GPIOA,GPIO_Pin_15)
 
 #define OLED_CMD  0	//写命令
 #define OLED_DATA 1	//写数据
