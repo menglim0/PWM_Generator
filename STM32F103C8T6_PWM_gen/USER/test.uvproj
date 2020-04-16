@@ -46,7 +46,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>..\OBJ\</OutputDirectory>
+          <OutputDirectory>..\..\..\STM32_Output\STM32F103C8T6_PWM_gen_obj\</OutputDirectory>
           <OutputName>test</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
