@@ -248,6 +248,7 @@
           <Filename>..\MY\lcd\lcd.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
+<<<<<<< HEAD
         </Bp>
         <Bp>
           <Number>5</Number>
@@ -264,6 +265,8 @@
           <Filename>.\main.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
+=======
+>>>>>>> origin/master
         </Bp>
       </Breakpoint>
       <WatchWindow1>

@@ -6,6 +6,7 @@
 固件库  ：V3.5
 技术论坛：www.doflye.net
 备    注：通过简单修改可以移植到其他开发板，部分资料来源于网络。
+master branch
 ---------------------------------------------------------------------------------*/
 #include <stdio.h>
 #include "stm32f10x.h"
@@ -188,6 +189,8 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	//vTaskStartScheduler();
 	
 	Usart_Config_State=!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
+	//while(1)
+	//{}
 	
 	while(1)
 	{
@@ -337,7 +340,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 				
 				
 	
-			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
+			//PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
 					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 	
