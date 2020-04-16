@@ -31,3 +31,4 @@
 ..\obj\adc.o: ..\FWLib\inc\misc.h
 ..\obj\adc.o: ..\MY\adc\adc.h
 ..\obj\adc.o: ..\MY\delay\delay.h
+..\obj\adc.o: ..\MY\sys\sys.h

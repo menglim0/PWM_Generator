@@ -31,8 +31,5 @@
 ..\obj\lcd.o: ..\FWLib\inc\stm32f10x_wwdg.h
 ..\obj\lcd.o: ..\FWLib\inc\misc.h
 ..\obj\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-..\obj\lcd.o: ..\MY\lcd\font.h
-..\obj\lcd.o: ..\MY\usart\usart.h
-..\obj\lcd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\lcd.o: ..\MY\OLED\oledfont.h
 ..\obj\lcd.o: ..\MY\delay\delay.h
-..\obj\lcd.o: ..\MY\SPI\spi.h

@@ -26,10 +26,10 @@
 #include "spi.h"	
 #include "display.h"
 
-/* Scheduler includes. */
+/* Scheduler includes. 
 #include "FreeRTOS.h"
 #include "task.h"
-#include "queue.h"
+#include "queue.h"*/
 
 #include "My_InitTask.h" 
 /*
@@ -120,9 +120,9 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 		u16 i=0;	 
 	u8 key=0;
 	
-	LED_Init_G14();
+	//LED_Init_G14();
   LED_Init();	
-	
+	delay_init();	
 			NVIC_Configuration(); 	 //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 		NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
 	
@@ -133,13 +133,13 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 		TIM1_Int_Init(6009,1000);	
 		TIM_SetCompare1(TIM1,800);         //设置占空比为1/3
 	 
-	 		TIM2_Int_Init(6009,1000);	
+	 	TIM2_Int_Init(6009,1000);	
 		TIM_SetCompare1(TIM2,800);         //设置占空比为1/3
 		
-			TIM3_PWM_Init(6009,1000);	 //不分频。PWM频率=72000/900=8Khz
+		TIM3_PWM_Init(6009,1000);	 //不分频。PWM频率=72000/900=8Khz
 		TIM_SetCompare4(TIM3,800);	
 	 
-	 	 		TIM4_Int_Init(6009,1000);	
+	 	TIM4_Int_Init(6009,1000);	
 		TIM_SetCompare1(TIM4,1800);          //设置占空比为1/3
 	 
 	 	 
@@ -167,26 +167,17 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	
 	
 		delay(500);
-	SPI1_Init();	//SPI1初始化
+	//SPI1_Init();	//SPI1初始化
 	delay(500);
-	LCD_Init();	  			
+	Lcd_Init();	
+	LCD_Clear(WHITE); //清屏	
 	delay(500);
  	POINT_COLOR=RED;//设置字体为红色 
 	xianshi();	   //显示信息
 
 	
-	//xTaskCreate( Task1, ( signed portCHAR *) "Task1", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);
-	//xTaskCreate( Task2, ( signed portCHAR *) "Task2", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);
-	//xTaskCreate( Task3, ( signed portCHAR *) "Task3", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY), 	NULL);
-   //	xTaskCreate( Task4, ( signed portCHAR *) "Task4", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY), NULL);
-	/*xTaskCreate( Task5, ( signed portCHAR *) "Task5", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);
-	xTaskCreate( Task6, ( signed portCHAR *) "Task6", configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY+1), NULL);*/
-	
-
-	/* Start the scheduler. */
-	//vTaskStartScheduler();
-	
 	Usart_Config_State=!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
+	
 	
 	while(1)
 	{
@@ -329,7 +320,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 				
 				
 	
-			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
+			//PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
 					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 	
@@ -379,7 +370,7 @@ void Task1 (void *data)
 	{ 
 		 
    PCout(13)=!PCout(13);            //  点亮LED 
-		vTaskDelay( 1000 / portTICK_RATE_MS ); 
+		vTaskDelay( 10); 
 	
 		
 
