@@ -53,6 +53,7 @@ void xianshi()//显示信息
 for(index_Show=0;index_Show<8;index_Show++)	
 	{
 		LCD_ShowString(12,(index_Show+3)*18+4,300,16,16,"PWM1 Freq:1024 Duty:100 %");
+		LCD_ShowxNum(12+24,(index_Show+3)*18+4,index_Show,1,16,0x00);
 
 //在指定区域内填充单个颜色
 //(sx,sy),(ex,ey):填充矩形对角坐标,区域大小为:(ex-sx+1)*(ey-sy+1)   
