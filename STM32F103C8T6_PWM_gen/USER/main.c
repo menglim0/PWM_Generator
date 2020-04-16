@@ -175,13 +175,8 @@ unsigned int adcx_Freq_Raw[8],adcx_DutyCycle_Raw[8],adcx_Freq_Old[8],adcx_DutyCy
 	xianshi();	   //显示信息
 
 	
-	Usart_Config_State=(bool)(!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12));
+	Usart_Config_State=!GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_12);
 	
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	 //使能A端口时钟
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;	 
- 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//速度50MHz
- 	GPIO_Init(GPIOA, &GPIO_InitStructure);	  //初始化GPIOD3,6
 	
 	while(1)
 	{
