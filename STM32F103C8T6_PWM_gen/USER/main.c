@@ -238,6 +238,11 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		{
 		//adcx[ADC_index_i] = Get_Adc_Average(ADC_index_i+1,100); // 读取转换的AD值
 			adcx_Freq[ADC_index_i]=Get_Adc_Filter(adcx_Freq_Raw[ADC_index_i],100);
+			
+		if(adcx_Freq[ADC_index_i]<5)
+			{
+				adcx_Freq[ADC_index_i]=5;
+			}
 			adcx_DutyCycle[ADC_index_i]=Get_Adc_Filter(adcx_DutyCycle_Raw[ADC_index_i],100);
 			
 			if(adcx_DutyCycle[ADC_index_i]>2050)
@@ -307,7 +312,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		
 		for(channel_i=0;channel_i<4;channel_i++)
 		{
-				adcx_Freq[channel_i]=1000;
+//				adcx_Freq[channel_i]=1000;
 			
 			if((adcx_Freq_Changed[channel_i]==1) || (adcx_DutyCycle_Changed[channel_i]==1))
 			{
@@ -316,7 +321,9 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 //			display_PWM_DutyCycle(channel_i+1,channel_i*2,adcx_DutyCycle[channel_i]/100);
 				
 				
-	
+			if(adcx_Freq[channel_i]<5)
+			{adcx_Freq[channel_i]=5;}
+			
 			PWM_Freq_DC(channel_i,adcx_DutyCycle[channel_i],adcx_Freq[channel_i]);
 				
 					//display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
@@ -330,7 +337,7 @@ for(ADC_index_i=0;ADC_index_i<4;ADC_index_i++)
 		
 		if(Usart_Config_State==FALSE)
 		{
-				for(channel_i=0;channel_i<1;channel_i++)
+				for(channel_i=0;channel_i<8;channel_i++)
 				{
 					display_Ch_Fre_Duty(channel_i,adcx_Freq[channel_i],adcx_DutyCycle[channel_i]);	
 				}

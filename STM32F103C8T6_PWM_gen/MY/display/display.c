@@ -29,7 +29,7 @@ void xianshi()//œ‘ æ–≈œ¢
 	BACK_COLOR=WHITE;
 	POINT_COLOR=RED;
 	  LCD_ShowString(80,5,"PWM Display");
-for(index_Show=0;index_Show<1;index_Show++)
+for(index_Show=0;index_Show<8;index_Show++)
 	{
 	pos_x=index_Show*24+28;
 	LCD_ShowString(10,pos_x,"Ch :Freq");
